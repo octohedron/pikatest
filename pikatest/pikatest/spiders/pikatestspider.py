@@ -31,11 +31,10 @@ class PikaTestSpider(scrapy.Spider):
             logging.info(new_url)
             # Acknowledge the message was received
             self.rmqc.basic_ack(method_frame.delivery_tag)
-            # This could happen, but it never gets to the parse method
+            # This happens only after x amount of messages are received
             yield scrapy.Request(url=new_url, callback=self.parse)
 
-    # This method should get called
+    # This method gets called only after x amount of messages are received
     def parse(self, response):
-        # It never gets to here
         logging.info("Got response")
         logging.info(response.body)
