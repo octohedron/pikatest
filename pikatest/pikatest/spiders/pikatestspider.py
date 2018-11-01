@@ -24,7 +24,6 @@ class PikaTestSpider(scrapy.Spider):
         self.rmqc.queue_declare(queue=self.rbmqrk)
 
     def start_requests(self):
-        # New list for storing the URLS
         for method_frame, properties, body in self.rmqc.consume(self.rbmqrk):
             new_url = body.decode()
             # This does get printed
